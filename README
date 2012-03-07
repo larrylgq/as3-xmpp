@@ -1,31 +1,9 @@
 该项目是as3版本的xmpp的协议栈
+事件都是异步的，可以使用以下方法来注册监听，具体的监听都在XMPPEvent
 
 private var _dispatcherHander:Control=Control.getInstance();
-			[Bindable]private var conn:XMPPConnHander=XMPPConnHander.getInstance();
+var conn:XMPPConnHander=XMPPConnHander.getInstance();
 			
-			
-			protected function creationCompleteHandler(event:FlexEvent):void
-			{
-				_dispatcherHander.addEventListener(XMPPEvent.CONNECT_FAILED, handleAuthFailed);/* 连接失败 */
-				_dispatcherHander.addEventListener(XMPPEvent.SESSION, sessionOpend);/* 会话打开 */
-				_dispatcherHander.addEventListener(ChatModuleEvent.CHANGETEXTFLOWPANEL, selectTab);
-			}
-			
-			/* 选择模块 */
-			public function selectTab(evt:ChatModuleEvent):void{
-				if(chatGroup.numElements>0){
-					chatGroup.removeAllElements();
-					chatGroup.addElementAt(evt.stanza as TextFlowPanel,0);
-				}
-			}
-			
-			/* 连接失败 */
-			private function handleAuthFailed(e:XMPPEvent):void {
-				this.currentState="init";
-			}
-			
-			/* 会话打开 */
-			private function sessionOpend(e:XMPPEvent):void{
-				
-				this.currentState="logined";
-			}
+_dispatcherHander.addEventListener(XMPPEvent.CONNECT_FAILED, handleAuthFailed);/* 连接失败 */
+_dispatcherHander.addEventListener(XMPPEvent.SESSION, sessionOpend);/* 会话打开 */
+_dispatcherHander.addEventListener(ChatModuleEvent.CHANGETEXTFLOWPANEL, selectTab);
